@@ -6,6 +6,7 @@ import 'package:guessme/home/data/repository/friends_repository.dart';
 import 'package:guessme/home/screens/homescreen.dart';
 import 'package:guessme/main.dart';
 import 'package:guessme/profile/screens/friends_list.dart';
+import 'package:guessme/profile/screens/widgets/profile_picture.dart';
 
 class ProfileScreen extends StatefulWidget {
   final UserModel userModel;
@@ -57,7 +58,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           return Container(
             child: Column(
               children: [
-                profileImage(),
+                ProfilePicture(
+                  userModel: widget.userModel,
+                ),
                 const SizedBox(
                   height: 18,
                 ),

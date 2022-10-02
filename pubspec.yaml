@@ -43,6 +43,10 @@ dependencies:
   firebase_core:
   cloud_firestore: ^3.5.0
   font_awesome_flutter: ^10.2.1
+  firebase_storage: ^10.3.10
+  image_picker: ^0.8.5+3
+  path: ^1.8.0
+  cached_network_image: ^3.2.2
 
 
   

@@ -27,4 +27,11 @@ class AuthRepository {
     DocumentSnapshot snapshot = await userCollection.doc(id).get();
     return userFromJson(jsonEncode(snapshot.data()));
   }
+
+  Future<Null> updateuserlastSeen(String id) async {
+    DocumentSnapshot snapshot = await userCollection.doc(id).get();
+    UserModel user = userFromJson(jsonEncode(snapshot.data()));
+    user.lastSeen = DateTime.now();
+    userCollection.doc(id).update(user.toJson());
+  }
 }

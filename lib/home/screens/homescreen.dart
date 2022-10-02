@@ -2,11 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:guessme/authentication/data/models/user_model.dart';
+import 'package:guessme/authentication/data/repository/authrepository.dart';
 
 import 'package:guessme/home/data/repository/friends_repository.dart';
 import 'package:guessme/home/screens/widgets/drawer.dart';
 import 'package:guessme/home/screens/widgets/friend_card.dart';
 import 'package:guessme/home/screens/widgets/friend_request_card.dart';
+import 'package:guessme/main.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -91,16 +93,22 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class HomeScaffold extends StatelessWidget {
+class HomeScaffold extends StatefulWidget {
   final Widget child;
   final GlobalKey<ScaffoldState> scaffoldKey;
   const HomeScaffold(
       {super.key, required this.child, required this.scaffoldKey});
 
   @override
+  State<HomeScaffold> createState() => _HomeScaffoldState();
+}
+
+class _HomeScaffoldState extends State<HomeScaffold> {
+  @override
   Widget build(BuildContext context) {
+    AuthRepository().updateuserlastSeen(sharedPref.udid);
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
       drawer: const HomeDrawer(),
       backgroundColor: Colors.blueGrey.shade50,
       body: SafeArea(
@@ -110,7 +118,7 @@ class HomeScaffold extends StatelessWidget {
               children: [
                 IconButton(
                     onPressed: () {
-                      scaffoldKey.currentState?.openDrawer();
+                      widget.scaffoldKey.currentState?.openDrawer();
                     },
                     icon: const Icon(
                       Icons.menu,
@@ -121,7 +129,7 @@ class HomeScaffold extends StatelessWidget {
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [child],
+                children: [widget.child],
               ),
             ),
           ],

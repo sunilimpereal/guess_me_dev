@@ -15,11 +15,13 @@ class UserModel {
     required this.number,
     required this.openToChat,
     required this.inconversation,
+    required this.lastSeen,
   });
 
   String udid;
   String name;
   String number;
+  DateTime lastSeen;
   bool openToChat;
   bool inconversation;
 
@@ -29,6 +31,8 @@ class UserModel {
         number: json["number"],
         openToChat: json["open_to_chat"],
         inconversation: json["inconversation"],
+        lastSeen:
+            DateTime.parse(json["last_seen"] ?? DateTime.now().toString()),
       );
 
   Map<String, dynamic> toJson() => {
@@ -37,5 +41,6 @@ class UserModel {
         "number": number,
         "open_to_chat": openToChat,
         "inconversation": inconversation,
+        "last_seen": lastSeen.toString()
       };
 }

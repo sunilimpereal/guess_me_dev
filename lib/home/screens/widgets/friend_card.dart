@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:guessme/authentication/data/models/user_model.dart';
 import 'package:guessme/home/data/bloc/friends_bloc.dart';
+import 'package:guessme/home/screens/widgets/user_card_home.dart';
 
 import '../../../profile/screens/profile_screen.dart';
+import '../../../profile/screens/widgets/card_profile_picture.dart';
 import '../../data/repository/friends_repository.dart';
 
 class FriendCard extends StatefulWidget {
@@ -25,8 +27,8 @@ class _FriendCardState extends State<FriendCard> {
           return StreamBuilder<List<UserModel>>(
               stream: FriendsProvider.of(context).friendsSentRequestListStream,
               builder: (context, snapshotSent) {
-                List<UserModel> receivedRequest = snapshotReceived.data!;
-                List<UserModel> sentRequest = snapshotSent.data!;
+                List<UserModel> receivedRequest = snapshotReceived.data ?? [];
+                List<UserModel> sentRequest = snapshotSent.data ?? [];
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Material(
@@ -54,23 +56,12 @@ class _FriendCardState extends State<FriendCard> {
                             children: [
                               Row(
                                 children: [
-                                  Container(
-                                    height: 50,
-                                    width: 50,
-                                    decoration: BoxDecoration(
-                                        color: Colors.blue,
-                                        borderRadius:
-                                            BorderRadius.circular(16)),
-                                  ),
+                                  CardProfilePicture(
+                                      udid: widget.userModel.udid),
                                   const SizedBox(
                                     width: 8,
                                   ),
-                                  Text(
-                                    widget.userModel.name,
-                                    style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                                  nameSec(widget.userModel)
                                 ],
                               ),
                               ElevatedButton(

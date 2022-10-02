@@ -4,6 +4,8 @@ import 'package:guessme/authentication/data/repository/authrepository.dart';
 import 'package:guessme/home/screens/homescreen.dart';
 import 'package:guessme/main.dart';
 import 'package:guessme/profile/screens/friends_list.dart';
+import 'package:guessme/profile/screens/widgets/profile_picture.dart';
+import 'package:guessme/settings/settings_screen.dart';
 
 import '../../home/data/repository/friends_repository.dart';
 import '../../home/screens/widgets/drawer.dart';
@@ -39,7 +41,10 @@ class _MyProfileWidgetState extends State<MyProfileWidget> {
                     )),
                 IconButton(
                     onPressed: () {
-                      scaffoldKey.currentState?.openDrawer();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SettingsScreen()));
                     },
                     icon: const Icon(
                       Icons.settings,
@@ -80,7 +85,9 @@ class _MyProfileWidgetState extends State<MyProfileWidget> {
           return Container(
             child: Column(
               children: [
-                profileImage(),
+                ProfilePicture(
+                  userModel: user,
+                ),
                 const SizedBox(
                   height: 18,
                 ),

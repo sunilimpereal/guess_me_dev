@@ -24,19 +24,13 @@ class SharedPref {
   /// Set as logged out
   setLoggedOut() {
     _sharedPref!.setBool('loggedIn', false);
-    setAuthToken(token: "");
-    // _sharedPref!.remove('authToken');
+    _sharedPref!.setString('udid', '');
   }
 
   /// Set  user details
   setUserDetails({required String udid, required String mobile}) {
     _sharedPref!.setString('udid', udid);
     _sharedPref!.setString('mobile', mobile);
-  }
-
-  ///set Auth token for the app
-  setAuthToken({required String token}) {
-    _sharedPref!.setString('authToken', token);
   }
 
   setVideoSourceType({required String source}) {

@@ -4,6 +4,7 @@ import 'package:guessme/home/data/bloc/friends_bloc.dart';
 import 'package:guessme/home/data/repository/friends_repository.dart';
 
 import '../../../profile/screens/profile_screen.dart';
+import '../../../profile/screens/widgets/card_profile_picture.dart';
 
 class FriendRequestCard extends StatefulWidget {
   final UserModel userModel;
@@ -41,13 +42,7 @@ class _FriendRequestCardState extends State<FriendRequestCard> {
                     children: [
                       Row(
                         children: [
-                          Container(
-                            height: 50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                                color: Colors.blue,
-                                borderRadius: BorderRadius.circular(16)),
-                          ),
+                          CardProfilePicture(udid: widget.userModel.udid),
                           const SizedBox(
                             width: 8,
                           ),

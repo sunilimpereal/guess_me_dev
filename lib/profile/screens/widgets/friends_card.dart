@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:guessme/authentication/data/models/user_model.dart';
+import 'package:guessme/profile/screens/widgets/card_profile_picture.dart';
 
 class ProfileFriendCard extends StatefulWidget {
   final UserModel userModel;
@@ -27,13 +28,7 @@ class _ProfileFriendCardState extends State<ProfileFriendCard> {
             children: [
               Row(
                 children: [
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(16)),
-                  ),
+                  CardProfilePicture(udid: widget.userModel.udid),
                   const SizedBox(
                     width: 8,
                   ),

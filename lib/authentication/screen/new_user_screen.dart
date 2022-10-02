@@ -73,6 +73,7 @@ class _NewUserScreenState extends State<NewUserScreen> {
                   name: userNameController.text,
                   number: _auth.currentUser!.phoneNumber!,
                   openToChat: false,
+                  lastSeen: DateTime.now(),
                   inconversation: false));
               setState(() {
                 showLoading = false;

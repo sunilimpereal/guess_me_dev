@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:guessme/authentication/data/models/user_model.dart';
 import 'package:guessme/home/data/bloc/friends_bloc.dart';
 import 'package:guessme/home/data/repository/friends_repository.dart';
+import 'package:guessme/profile/screens/widgets/card_profile_picture.dart';
 
 import '../../../profile/screens/profile_screen.dart';
 
@@ -53,23 +54,12 @@ class _UserCardHomeState extends State<UserCardHome> {
                             children: [
                               Row(
                                 children: [
-                                  Container(
-                                    height: 50,
-                                    width: 50,
-                                    decoration: BoxDecoration(
-                                        color: Colors.blue,
-                                        borderRadius:
-                                            BorderRadius.circular(16)),
-                                  ),
+                                  CardProfilePicture(
+                                      udid: widget.userModel.udid),
                                   const SizedBox(
                                     width: 8,
                                   ),
-                                  Text(
-                                    widget.userModel.name,
-                                    style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                                  nameSec(widget.userModel)
                                 ],
                               ),
                               functionButtons(
@@ -166,4 +156,62 @@ class _UserCardHomeState extends State<UserCardHome> {
           ));
     }
   }
+}
+
+Widget nameSec(UserModel userModel) {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 8),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          userModel.name,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        lastSeenStatus(userModel)
+      ],
+    ),
+  );
+}
+
+Widget lastSeenStatus(UserModel userModel) {
+  Duration diff = DateTime.now().difference(userModel.lastSeen);
+  log(diff.toString());
+  String status = "";
+  if (diff.inSeconds < 60) {
+    status = "Online";
+  }
+  if (diff.inMinutes >= 1 && diff.inMinutes < 60) {
+    status = "${diff.inMinutes} min ago";
+  }
+  if (diff.inHours >= 1 && diff.inHours < 24) {
+    status = "${diff.inHours} hrs ago";
+  }
+  if (diff.inDays >= 1 && diff.inDays < 24) {
+    status = "${diff.inDays} days ago";
+  }
+  return Container(
+    padding: const EdgeInsets.all(0.0),
+    child: Row(
+      children: [
+        status == "Online"
+            ? Container(
+                width: 8,
+                height: 8,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(80),
+                    color: Colors.green),
+              )
+            : Container(),
+        SizedBox(
+          width: status == "Online" ? 4 : 0,
+        ),
+        Text(
+          status,
+          style: TextStyle(fontWeight: FontWeight.normal),
+        ),
+      ],
+    ),
+  );
 }
